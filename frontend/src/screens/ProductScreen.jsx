@@ -1,16 +1,26 @@
-import {useParams} from "react-router-dom" ; 
+import {useParams , useNavigate} from "react-router-dom" ; 
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Row , Col , ListGroup , Card , Button, Image  } from "react-bootstrap";
+import { Row , Col , ListGroup , Card , Button, Image, FormControl  } from "react-bootstrap";
 import Loader from "../components/Loader";
 import Rating from "../components/Rating";
 import { useGetProductsDetailsQuery } from "../slices/productsApiSlice";
+import {addToCart} from '../slices/cartSlice'
 import Message from "../components/Message";
 
 
 
 const ProductScreen = () => {
   const {id: productId }  = useParams() ;
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [qty  , setQty]  = useState(1)
   const {data:product , isLoading , error} = useGetProductsDetailsQuery(productId)
+  const addToCartHandler = ()=>{
+    dispatch(addToCart({...product , qty}))
+    navigate('/cart')
+  }
 
  
   
@@ -62,10 +72,30 @@ const ProductScreen = () => {
               </Col>
             </Row>
           </ListGroup.Item>
+          {product.countInStock > 0 && (<ListGroup.Item>
+            <Row>
+              <Col>Qty</Col>
+              <Col>
+              <FormControl as="select"
+                value={qty}
+                onChange={(e) => setQty(Number(e.target.value))}
+              >
+                {[...Array(product.countInStock).keys()].map((x) =>(
+                  <option key={x+1} value={x+1}>
+                      {x+1}
+                  </option>
+                ))} 
+
+              </FormControl>
+              </Col>
+
+            </Row>
+          </ListGroup.Item>)}
           <ListGroup.Item>
             <Button className="btn-block"
             type="button" 
-            disabled={product.countInStock === 0 }> Add to Cart </Button>
+            disabled={product.countInStock === 0 }
+            onClick={addToCartHandler}> Add to Cart </Button>
           </ListGroup.Item>
 
         </ListGroup>
