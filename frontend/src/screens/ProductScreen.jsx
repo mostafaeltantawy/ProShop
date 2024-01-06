@@ -2,7 +2,7 @@ import {useParams , useNavigate} from "react-router-dom" ;
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Row , Col , ListGroup , Card , Button, Image, FormControl  } from "react-bootstrap";
+import { Row , Col , ListGroup , Card , Button, Image, Form  } from "react-bootstrap";
 import Loader from "../components/Loader";
 import Rating from "../components/Rating";
 import { useGetProductsDetailsQuery } from "../slices/productsApiSlice";
@@ -76,7 +76,7 @@ const ProductScreen = () => {
             <Row>
               <Col>Qty</Col>
               <Col>
-              <FormControl as="select"
+              <Form.Control as="select"
                 value={qty}
                 onChange={(e) => setQty(Number(e.target.value))}
               >
@@ -86,7 +86,7 @@ const ProductScreen = () => {
                   </option>
                 ))} 
 
-              </FormControl>
+              </Form.Control>
               </Col>
 
             </Row>
