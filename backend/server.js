@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import productRoutes from './routes/productRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 dotenv.config();
 import connectDb from './config/db.js';
@@ -10,6 +12,7 @@ connectDb(); //connect to mongodb
 const app = express();
 
 app.use('/api/products', productRoutes);
+app.use('/api/users', userRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
