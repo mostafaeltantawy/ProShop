@@ -10,6 +10,9 @@ const port = process.env.PORT || 5000;
 
 connectDb(); //connect to mongodb
 const app = express();
+// Body Parser Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
