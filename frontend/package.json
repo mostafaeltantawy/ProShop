@@ -49,4 +49,5 @@
     "css-loader": "^6.9.0",
     "style-loader": "^3.3.4"
   }
+  
 }
