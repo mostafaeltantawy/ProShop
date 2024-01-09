@@ -16,7 +16,6 @@ const App = () => {
       </main>
       <Footer></Footer>
       <ToastContainer />
-      <ToastContainer />
     </>
   );
 };
