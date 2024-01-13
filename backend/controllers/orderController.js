@@ -43,9 +43,9 @@ const getMyOrders = asyncHandler(async (req, res) => {
 const getOrderById = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id).populate(
     'user',
-    'name',
-    'email'
+    'name email'
   );
+
   if (order) {
     res.status(200).json(order);
   } else {
