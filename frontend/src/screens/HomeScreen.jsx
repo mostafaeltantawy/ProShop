@@ -1,10 +1,11 @@
 import { Col, Row } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Product from '../components/Product';
 import Paginate from '../components/Paginate';
+import ProductCarousel from '../components/ProductCarousel';
 
 const HomeScreen = () => {
   const { pageNumber, keyword } = useParams();
@@ -14,6 +15,7 @@ const HomeScreen = () => {
   });
   return (
     <>
+      {!keyword && <ProductCarousel />}
       {isLoading ? (
         <Loader />
       ) : error ? (

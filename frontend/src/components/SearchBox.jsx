@@ -1,19 +1,12 @@
 import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useGetProductsQuery } from '../slices/productsApiSlice';
+
 const SearchBox = () => {
   const navigate = useNavigate();
   const { keyWord: urlKeyword } = useParams();
   const [keyword, setKeyword] = useState(urlKeyword || '');
-  const {
-    data: searchResults,
-    error,
-    isLoading,
-  } = useGetProductsQuery({
-    keyword,
-    pageNumber: 1, // You may adjust the page number as needed
-  });
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {

@@ -9,6 +9,7 @@ import cookieParser from 'cookie-parser';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 dotenv.config();
 import connectDb from './config/db.js';
+import exp from 'constants';
 const port = process.env.PORT || 5000;
 
 connectDb(); //connect to mongodb
@@ -32,6 +33,14 @@ app.get('/api/config/paypal', (req, res) =>
 //set the __dirname to the current directory
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+} else {
+  res.send('API IS RUNNING');
+}
 
 app.use(notFound);
 app.use(errorHandler);
